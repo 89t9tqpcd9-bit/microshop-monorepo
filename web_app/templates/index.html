@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Микросервисное приложение</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать в микросервисное приложение</h1>
+        <p>Выберите раздел для работы:</p>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('products') }}">Товары</a></li>
+                <li><a href="{{ url_for('orders') }}">Заказы</a></li>
+                <li><a href="{{ url_for('customers') }}">Клиенты</a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Заказы</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Управление заказами</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2>Создать новый заказ</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="product_id">ID товара:</label>
+                <input type="number" id="product_id" name="product_id" required min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="customer_id">ID клиента:</label>
+                <input type="number" id="customer_id" name="customer_id" required min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Количество:</label>
+                <input type="number" id="quantity" name="quantity" required min="1">
+            </div>
+
+            <button type="submit" class="btn">Создать заказ</button>
+        </form>
+
+        <h2>Список заказов</h2>
+        {% if orders %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID заказа</th>
+                        <th>ID товара</th>
+                        <th>ID клиента</th>
+                        <th>Количество</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id if order.id else loop.index }}</td>
+                        <td>{{ order.product_id }}</td>
+                        <td>{{ order.customer_id }}</td>
+                        <td>{{ order.quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Заказы отсутствуют.</p>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}" class="btn">← Назад на главную</a>
+    </div>
+</body>
+</html>
